@@ -1,18 +1,18 @@
 # Porco TTS
 
-Um leitor de tela inteligente para Arch Linux baseado no Piper TTS, com suporte a Visão Computacional (OCR) e filtros de voz otimizados.
+An intelligent screen reader for Arch Linux based on Piper TTS, featuring Computer Vision (OCR) support and optimized voice filters.
 
-## 🚀 Funcionalidades
+## 🚀 Features
 
-- **Leitura de Seleção**: Lê instantaneamente qualquer texto selecionado (X11/Wayland).
-- **Leitura de Tela (OCR)**: Se nada estiver selecionado, o script tira um snapshot da janela sob o mouse e usa OCR (`tesseract`) para identificar o conteúdo.
-- **Filtro Inteligente**: Diferencia conteúdo útil (sentenças/parágrafos) de ruídos de interface (menus, nomes de botões).
-- **Voz de Alta Qualidade**: Filtros FFmpeg integrados para remover sons abafados e aumentar a clareza da voz.
-- **Toggle Mode**: Aperte o atalho novamente para parar a leitura instantaneamente.
+- **Selection Reading**: Instantly reads any selected text (X11/Wayland).
+- **Screen Reading (OCR)**: If no text is selected, the script takes a snapshot of the window under the mouse and uses OCR (`tesseract`) to identify content.
+- **Intelligent Filtering**: Distinguishes useful content (sentences/paragraphs) from UI noise (menus, button names).
+- **High-Quality Voice**: Integrated FFmpeg filters to remove muffled sounds and increase speech clarity.
+- **Toggle Mode**: Press the shortcut again to stop reading instantly.
 
-## 🛠️ Dependências (Arch Linux)
+## 🛠️ Dependencies (Arch Linux)
 
-O instalador tentará instalar estas dependências automaticamente:
+The installer will attempt to install these dependencies automatically:
 
 - `piper-tts-bin` (AUR)
 - `ffmpeg`
@@ -22,37 +22,37 @@ O instalador tentará instalar estas dependências automaticamente:
 - `imagemagick`
 - `python3`
 - `libnotify`
-- `alsa-utils` (para `aplay`)
+- `alsa-utils` (for `aplay`)
 
-## 📦 Instalação
+## 📦 Installation
 
-1.  Clone este repositório:
+1.  Clone this repository:
 
     ```bash
-    git clone https://github.com/SEU_USUARIO/porco-tts.git
+    git clone https://github.com/jporco/porco-tts.git
     cd porco-tts
     ```
 
-2.  Execute o instalador:
+2.  Run the installer:
 
     ```bash
     chmod +x install.sh
     ./install.sh
     ```
 
-3.  Coloque seu modelo de voz `.onnx` e o arquivo `.json` correspondente em:
+3.  Place your `.onnx` voice model and the corresponding `.json` file in:
     `$HOME/.config/piper/pt-BR-cadu-medium.onnx`
 
-## ⌨️ Atalho de Teclado (KDE/GNOME/i3)
+## ⌨️ Keyboard Shortcut (KDE/GNOME/i3)
 
-Configure uma tecla (ex: `Meta + S`) para executar o seguinte comando:
+Configure a key (e.g., `Meta + S`) to execute the following command:
 
 ```bash
 $HOME/.local/bin/porco_read.sh 1.6
 ```
 
-_(O número 1.6 é a velocidade da fala, ajuste como preferir)._
+_(The number 1.6 is the speech speed, adjust as preferred)._
 
-## 📄 Licença
+## 📄 License
 
 MIT
