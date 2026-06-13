@@ -1,0 +1,8 @@
+# Copie para ~/.config/porco-tts/config e ajuste conforme necessário.
+# cp config/config.example ~/.config/porco-tts/config
+
+VOICE_DIR="$HOME/.config/piper"
+VOICE_NAME="pt-BR-cadu-medium.onnx"
+OCR_LANG="por+eng"
+SPEED="1.6"
+VOLUME="1.0"

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Porco TTS
+Comment=Ler texto selecionado em voz alta
+Exec=@BINDIR@/piper_read.sh
+Terminal=false
+NoDisplay=true
+StartupNotify=false
+X-KDE-GlobalAccel-CommandShortcut=true
