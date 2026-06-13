@@ -1,149 +1,105 @@
 # Porco TTS
 
-Leitor de tela local para Linux (X11) com **Piper TTS**, leitura de seleção e OCR opcional.
+Local screen reader for Arch Linux using Piper TTS, with OCR support and voice filters.
 
-Pressione o atalho configurado (ex.: **Meta+S**) para ler o texto selecionado. Se nada estiver selecionado, captura a janela sob o cursor e usa OCR. Pressione novamente para interromper.
+## Features
 
-## Recursos
+- **Selection reading**: reads selected text (X11/Wayland)
+- **OCR**: if nothing is selected, captures the window under the mouse (X11 only)
+- **Content filter**: ignores menus and UI noise
+- **Voice pipeline**: FFmpeg filters for clarity and speed
+- **Toggle**: press the shortcut again to stop
 
-- Leitura instantânea de texto selecionado (X11 e Wayland)
-- OCR da janela sob o mouse quando não há seleção (somente X11)
-- Filtro de conteúdo para ignorar menus e botões de interface
-- Pipeline de áudio com FFmpeg (tom, velocidade, clareza)
-- Modo toggle: mesmo atalho para parar a leitura
+## Dependencies (Arch Linux)
 
-## Requisitos
+Installed automatically by `install.sh`:
 
-| Componente | Pacote (Arch) | Função |
-|---|---|---|
-| Piper TTS | `piper-tts-bin` (AUR) | Síntese de voz |
-| FFmpeg | `ffmpeg` | Filtros de áudio |
-| xdotool | `xdotool` | Janela sob o mouse (X11) |
-| xclip | `xclip` | Seleção primária (X11) |
-| wl-clipboard | `wl-clipboard` | Seleção (Wayland) |
-| Tesseract | `tesseract`, `tesseract-data-por`, `tesseract-data-eng` | OCR |
-| ImageMagick | `imagemagick` | Captura de janela |
-| Python 3 | `python3` | Filtro inteligente de OCR |
-| libnotify | `libnotify` | Notificações |
-| ALSA | `alsa-utils` | Reprodução (`aplay`) |
+- `piper-tts-bin` (AUR, via paru/yay)
+- `ffmpeg`, `xdotool`, `xclip`, `wl-clipboard`
+- `tesseract`, `tesseract-data-por`, `tesseract-data-eng`
+- `imagemagick`, `python3`, `libnotify`, `alsa-utils`
 
-**Modelo de voz:** arquivo `.onnx` + `.json` do Piper (pt-BR recomendado).
-
-## Instalação
-
-### 1. Clonar o repositório
+## Installation
 
 ```bash
 git clone https://github.com/jporco/porco-tts.git
 cd porco-tts
-```
-
-### 2. Executar o instalador
-
-```bash
 chmod +x install.sh
 ./install.sh
 ```
 
-O instalador:
-
-- Instala dependências via `pacman`
-- Instala `piper-tts-bin` via `paru` ou `yay` (AUR)
-- Copia `bin/piper_read.sh` para `~/.local/bin/`
-- Cria `~/.config/porco-tts/config` a partir do exemplo
-- Registra atalho KDE em `~/.local/share/applications/`
-
-### 3. Baixar modelo de voz
-
-Baixe o par `.onnx` + `.json` do repositório oficial do Piper:
-
-- [pt-BR-cadu-medium](https://huggingface.co/rhasspy/piper-voices/tree/main/pt/pt_BR/cadu/medium)
-
-Coloque os arquivos em:
+Place the Piper voice model (`.onnx` + `.json`) in:
 
 ```
 ~/.config/piper/pt-BR-cadu-medium.onnx
-~/.config/piper/pt-BR-cadu-medium.onnx.json
 ```
 
-Outros modelos pt-BR funcionam — ajuste `VOICE_NAME` no arquivo de configuração.
+Optional settings: `~/.config/porco-tts/config`
 
-### 4. Configurar atalho de teclado
+## Keyboard shortcut (KDE / GNOME / i3)
 
-**KDE Plasma**
-
-1. Configurações do Sistema → Atalhos → Atalhos personalizados
-2. Adicionar → Comando: `~/.local/bin/piper_read.sh`
-3. Atribuir tecla (ex.: **Meta+S**)
-
-Ou use o `.desktop` instalado automaticamente (`net.local.porco-tts.desktop`) na mesma tela de atalhos.
-
-**Outros ambientes (i3, sway, GNOME)**
-
-Adicione ao seu arquivo de atalhos:
+Assign a key (e.g. **Meta+S**) to:
 
 ```bash
-~/.local/bin/piper_read.sh
+$HOME/.local/bin/piper_read.sh
 ```
 
-## Configuração
+Speed can be passed as an argument: `piper_read.sh 1.6`
 
-Arquivo: `~/.config/porco-tts/config`
+## License
+
+MIT
+
+---
+
+# Porco TTS (pt-BR)
+
+Leitor de tela local para Arch Linux com Piper TTS, OCR e filtros de voz.
+
+## Recursos
+
+- **Leitura de seleção**: lê texto selecionado (X11/Wayland)
+- **OCR**: sem seleção, captura a janela sob o mouse (somente X11)
+- **Filtro de conteúdo**: ignora menus e ruído de interface
+- **Pipeline de voz**: filtros FFmpeg para clareza e velocidade
+- **Toggle**: pressione o atalho de novo para parar
+
+## Dependências (Arch Linux)
+
+Instaladas automaticamente pelo `install.sh`:
+
+- `piper-tts-bin` (AUR, via paru/yay)
+- `ffmpeg`, `xdotool`, `xclip`, `wl-clipboard`
+- `tesseract`, `tesseract-data-por`, `tesseract-data-eng`
+- `imagemagick`, `python3`, `libnotify`, `alsa-utils`
+
+## Instalação
 
 ```bash
-VOICE_DIR="$HOME/.config/piper"
-VOICE_NAME="pt-BR-cadu-medium.onnx"
-OCR_LANG="por+eng"
-SPEED="1.6"
-VOLUME="1.0"
+git clone https://github.com/jporco/porco-tts.git
+cd porco-tts
+chmod +x install.sh
+./install.sh
 ```
 
-| Variável | Descrição | Padrão |
-|---|---|---|
-| `VOICE_DIR` | Pasta dos modelos Piper | `~/.config/piper` |
-| `VOICE_NAME` | Arquivo `.onnx` | `pt-BR-cadu-medium.onnx` |
-| `OCR_LANG` | Idiomas Tesseract | `por+eng` |
-| `SPEED` | Velocidade da fala | `1.6` |
-| `VOLUME` | Volume FFmpeg | `1.0` |
+Coloque o modelo Piper (`.onnx` + `.json`) em:
 
-A velocidade também pode ser passada na linha de comando:
+```
+~/.config/piper/pt-BR-cadu-medium.onnx
+```
+
+Configuração opcional: `~/.config/porco-tts/config`
+
+## Atalho de teclado (KDE / GNOME / i3)
+
+Atribua uma tecla (ex.: **Meta+S**) para:
 
 ```bash
-~/.local/bin/piper_read.sh 1.4
+$HOME/.local/bin/piper_read.sh
 ```
 
-## Uso
-
-1. Selecione texto em qualquer aplicativo → pressione o atalho
-2. Sem seleção (X11): posicione o mouse sobre a janela → pressione o atalho (OCR)
-3. Pressione o atalho novamente para parar
-
-## Estrutura do projeto
-
-```
-porco-tts/
-├── bin/piper_read.sh       # Script principal
-├── config/config.example   # Configuração de exemplo
-├── desktop/                # Template de atalho KDE
-├── install.sh
-├── uninstall.sh
-└── README.md
-```
-
-## Desinstalação
-
-```bash
-./uninstall.sh
-```
-
-Remove script e atalhos. Modelos de voz e configuração permanecem (remova manualmente se quiser).
-
-## Limitações
-
-- OCR disponível apenas em **X11** (requer `xdotool` e `import`)
-- Wayland: apenas leitura de texto selecionado
-- Modelos de voz não são incluídos no repositório (tamanho/licença)
+Velocidade opcional: `piper_read.sh 1.6`
 
 ## Licença
 
-MIT — veja [LICENSE](LICENSE).
+MIT
